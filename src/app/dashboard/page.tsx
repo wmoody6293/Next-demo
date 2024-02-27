@@ -8,6 +8,7 @@ import Loading from './components/Loading'
 export default function Dashboard() {
   const { data, isSuccess, option} = useAppContext();
   if(isSuccess){
+    console.log('data: ', data);
     return (
       <div>
       <FilterBar />
