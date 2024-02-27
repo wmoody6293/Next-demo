@@ -7,7 +7,7 @@ import { useAppContext } from "@/providers/context/ContextProvider";
 export default function Navbar() {
   const {user, setUser} = useAppContext()
   const router = useRouter();
-  const username = user.username ? user.username : 'Welcome'
+  const username = user && user.username ? user.username : 'Welcome';
   const logout = () => {
     localStorage.removeItem('user');
     router.push('/login')

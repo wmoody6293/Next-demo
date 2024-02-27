@@ -6,7 +6,7 @@ import FilterBar from './components/FilterBar'
 import MakeCard from './components/MakeCard'
 import Loading from './components/Loading'
 export default function Dashboard() {
-  const { data, isSuccess, option, characters, films, planets, starships, vehicles, species} = useAppContext();
+  const { data, isSuccess, option} = useAppContext();
   if(isSuccess){
     return (
       <div>
