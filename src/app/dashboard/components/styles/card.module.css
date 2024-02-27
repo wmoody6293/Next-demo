@@ -37,6 +37,17 @@
 }
 .characteristic{
     margin: 0.3rem;
+    width: auto;
+    max-width: 80%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.label{
+    margin-right: 0.3rem;
+}
+.values{
+    max-width: 6.5rem;
 }
 .array-block{
     margin: 0.3rem;
@@ -51,6 +62,7 @@
     margin-right: 0.5rem;
     display: flex;
     min-width: auto;
+    justify-content: flex-end;
     width: 5rem;
     
 }

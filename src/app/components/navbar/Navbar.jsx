@@ -3,11 +3,19 @@ import styles from './navbar.module.css'
 import Link from "next/link";
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useAppContext } from "@/providers/context/ContextProvider";
+import {useState, useEffect} from 'react'
 export default function Navbar() {
-  const {user, setUser} = useAppContext()
+
+  const [username, setUsername] = useState('Welcome');
+  useEffect(() => {
+    let user;
+    user = localStorage.getItem('user') || 'Welcome';
+    if(user !== 'Welcome'){
+      user = JSON.parse(user).username;
+      setUsername(user);
+    }
+  },[])
   const router = useRouter();
-  const username = user && user.username ? user.username : 'Welcome';
   const logout = () => {
     localStorage.removeItem('user');
     router.push('/login')

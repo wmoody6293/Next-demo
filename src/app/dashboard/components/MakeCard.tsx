@@ -15,9 +15,9 @@ function MakeCard({data}:{data:any}) {
     }
     const checkHomeworld = (homeworld: string | undefined, index:number) => {
         if(homeworld){
-            return <p key={`homeworld-cardinfo-${index}`} className={styles.characteristic}>Homeworld: {homeworld}</p>
+            return <div key={`homeworld-cardinfo-${index}`} className={styles.characteristic}><p className={styles.label}>Homeworld: </p><p className={styles.values}>{homeworld}</p></div>
         }else{
-            return <p key={`homeworld-cardinfo-${index}`}className={styles.characteristic}>Homeworld: Unknown</p>
+            return <div key={`homeworld-cardinfo-${index}`} className={styles.characteristic}><p className={styles.label}>Homeworld: </p><p className={styles.values}>Unknown</p></div>
         }
     }
     const checkMass = (weight:string) => {
@@ -27,7 +27,8 @@ function MakeCard({data}:{data:any}) {
     }
     const checkArrays = (array:string[], label:string, index:number) => {
         if(array.length){
-            const listItems = array.map((item, i) => <li key={`${label}-cardInfoArr-${i}`} className={styles["array-val"]}>{item}</li>);
+            const arrLengthIndex = array.length - 1;
+            const listItems = array.map((item, i) => <li key={`${label}-cardInfoArr-${i}`} className={styles["array-val"]}>{`${item}${i==arrLengthIndex ? '' : ','}`}</li>);
             return (
                 <div key={`${label}-container`} className={styles["array-block"]}>
                     <p className={styles["array-label"]}>{label}</p>
@@ -58,15 +59,30 @@ function MakeCard({data}:{data:any}) {
                 continue;
             }
             else if(key==='episode_id'){
-                allData.push(<p key={`${key}-cardinfo-${index}`} className={styles.characteristic}>Episode #: {value}</p>)
+                allData.push(<div key={`${key}-cardinfo-${index}`} className={styles.characteristic}><p className={styles.label}>Episode #: </p><p className={styles.values}>{value}</p></div>)
             }
             else if(key === 'height'){
-                allData.push(<p key={`${key}-cardinfo-${index}`} className={styles.characteristic}>Height: {value} cm</p>)
+                allData.push(<div key={`${key}-cardinfo-${index}`} className={styles.characteristic}><p className={styles.label}>Height: </p><p className={styles.values}>{value} cm</p></div>)
+            }
+            else if(key === 'max_atmosphering_speed'){
+                allData.push(<div key={`${key}-cardinfo-${index}`} className={styles.characteristic}><p className={styles.label}>Max Atmos. Speed: </p><p className={styles.values}>{value}m/s</p></div>)
+            }
+            else if(key === 'length' || key==='diameter'){
+                allData.push(<div key={`${key}-cardinfo-${index}`} className={styles.characteristic}><p className={styles.label}>Length: </p><p className={styles.values}>{value}m</p></div>)
+            }
+            else if(key==='surface_water'){
+                allData.push(<div key={`${key}-cardinfo-${index}`} className={styles.characteristic}><p className={styles.label}>Surface Water: </p><p className={styles.values}>{value == 'unknown' ? 'Unknown' : `${value}%`}</p></div>)
+            }
+            else if(key==='rotation_period'){
+                allData.push(<div key={`${key}-cardinfo-${index}`} className={styles.characteristic}><p className={styles.label}>Rotation Period: </p><p className={styles.values}>{value == 'unknown' ? 'Unknown' : `${value} hours`}</p></div>)
+            }
+            else if(key === 'orbital_period'){
+                allData.push(<div key={`${key}-cardinfo-${index}`} className={styles.characteristic}><p className={styles.label}>Orbital Period: </p><p className={styles.values}>{value == 'unknown' ? 'Unknown' : `${value} days`}</p></div>)
             }
             //check for mass
             else if(key === 'mass'){
                 //@ts-ignore
-                allData.push(<p key={`${key}-cardinfo-${index}`} className={styles.characteristic}>Mass: {checkMass(value)}</p>)
+                allData.push(<div key={`${key}-cardinfo-${index}`} className={styles.characteristic}><p className={styles.label}>Mass: </p><p className={styles.values}>{checkMass(value)}</p></div>)
             }
             //check for homeworld
             else if(key === 'homeworld'){
@@ -81,7 +97,7 @@ function MakeCard({data}:{data:any}) {
             //else push p tag into array, set key == data._id - property
             else {
                 const label = getLabelFromKey(key);
-                allData.push(<p key={`${label}-cardInfo-${index}`} className={styles.characteristic}>{`${label} ${value}`}</p>)
+                allData.push(<div key={`${label}-cardInfo-${index}`} className={styles.characteristic}><p className={styles.label}>{label}</p><p className={styles.values}>{value}</p></div>)
             }
             index+=1;
         }

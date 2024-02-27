@@ -1,7 +1,7 @@
 'use client'
 import {createContext, useState, useContext} from 'react';
 import { useSwapi } from '@/app/dashboard/hooks/swapi/useSwapi';
-const AppContext = createContext<any>(null);
+export const AppContext = createContext<any>(null);
 
 export function ContextProvider({children} : {
     children: React.ReactNode

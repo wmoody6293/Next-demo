@@ -7,6 +7,7 @@ import {LoginData} from '@/shared/types/userTypes'
 import { Response } from "@/shared/types/axiosTypes";
 import axios from 'axios';
 import { useAppContext } from "@/providers/context/ContextProvider";
+import Loading from "../dashboard/components/Loading";
 export default function Login() {
    //redirect to login page
   const {user, setUser} = useAppContext();
@@ -45,6 +46,7 @@ export default function Login() {
       router.push('/dashboard');
       setIsLoading(false)
     }else{
+      setIsLoading(false);
       setError(data.message)
     }
    }
@@ -65,6 +67,13 @@ export default function Login() {
        setError(error);
      }
    }
+   if(isLoading){
+    return (
+      <div className={styles.canvas}>
+        <Loading />
+      </div>
+    )
+   }
    return (
      <section className={styles.canvas}>
           <div className={error.length > 0 ? styles["error-container"] : styles.hidden}>
@@ -72,7 +81,7 @@ export default function Login() {
          </div>
 
        <div className={styles.container}>
-         <h1 className={styles["form-header"]}>{isLoading ? 'Loading...' : "Login"}</h1>
+         <h1 className={styles["form-header"]}>Login</h1>
          <div className={styles["form-container"]}>
  
            <div className={styles["input-container"]}>

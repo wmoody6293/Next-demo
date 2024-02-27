@@ -6,6 +6,7 @@ import axios from "axios";
 import { Response } from "@/shared/types/axiosTypes";
 import styles from './register.module.css'
 import { useAppContext } from "@/providers/context/ContextProvider";
+import Loading from "../dashboard/components/Loading";
 export default function Register() {
   //redirect to login page
   const router = useRouter();
@@ -50,6 +51,7 @@ export default function Register() {
         router.push('/dashboard')
         setLoading(false)
       }else{
+        setLoading(false);
         setError('Error on register')
       }
     }else{
@@ -57,7 +59,12 @@ export default function Register() {
       return;
     }
 
-   }
+  }
+  if(loading){
+    return (
+      <div className={styles.canvas}><Loading /></div>
+    )
+  }
   return (
     <section className={styles.canvas}>
           <div className={error.length > 0 ? styles["error-container"] : styles.hidden}>
