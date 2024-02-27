@@ -7,6 +7,7 @@ import { useAppContext } from "@/providers/context/ContextProvider";
 export default function Navbar() {
   const {user, setUser} = useAppContext()
   const router = useRouter();
+  const username = user.username ? user.username : 'Welcome'
   const logout = () => {
     localStorage.removeItem('user');
     router.push('/login')
@@ -24,7 +25,7 @@ export default function Navbar() {
     <nav className={styles.nav}>
       <div className={styles["nav-element"]}>
         <div className={styles['welcome-container']}>
-          <h2>{user.username}</h2>
+          <h2>{username}</h2>
         </div>
       </div>
       <div className={styles["nav-element"]}>
